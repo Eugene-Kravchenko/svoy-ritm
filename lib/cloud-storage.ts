@@ -39,3 +39,16 @@ export async function sendMagicLink(email:string){
   const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:redirectTo}});
   if(error)throw error;
 }
+
+export async function signInWithPassword(email:string,password:string){
+  if(!supabase)throw new Error('Облачное хранение не настроено.');
+  const {error}=await supabase.auth.signInWithPassword({email,password});
+  if(error)throw error;
+}
+
+export async function signUpWithPassword(email:string,password:string){
+  if(!supabase)throw new Error('Облачное хранение не настроено.');
+  const {data,error}=await supabase.auth.signUp({email,password});
+  if(error)throw error;
+  return data;
+}
